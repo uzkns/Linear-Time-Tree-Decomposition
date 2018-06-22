@@ -1,0 +1,70 @@
+% !TeX spellcheck = de_DE
+\documentclass[ngerman,hyperref={pdfpagelabels=false}]{beamer}
+
+% -----------------------------------------------------------------------------
+
+\graphicspath{{images/}}
+
+% -----------------------------------------------------------------------------
+
+\usetheme{KIT}
+
+\setbeamercovered{transparent}
+%\setbeamertemplate{enumerate items}[ball]
+
+\newenvironment<>{KITtestblock}[2][]
+{\begin{KITcolblock}<#1>{#2}{KITblack15}{KITblack50}}
+{\end{KITcolblock}}
+
+\usepackage[ngerman,english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[TS1,T1]{fontenc}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{beamerKITdefs}
+\usepackage{amsfonts}
+
+
+\pdfpageattr {/Group << /S /Transparency /I true /CS /DeviceRGB>>}	%required to prevent color shifting withd transparent images
+
+
+\title{A Linear-Time Algorithm For Finding Tree-Decompositions Of Small Treewidth}
+\subtitle{Maximilian F. Göckel -- \textit{uzkns@student.kit.edu}}
+
+\author[Maximilian Göckel]{Maximilian F. Göckel}
+\institute{Institut für Theoretische Informatik - Proseminar Algorithmen für NP-schwere Probleme}
+
+\TitleImage[width=\titleimagewd,height=\titleimageht]{titel}
+
+\KITinstitute{Institut f\"ur Theoretische Informatik}
+\KITfaculty{Proseminar NP-schwere Probleme}
+
+% -----------------------------------------------------------------------------
+
+\begin{document}
+\setlength\textheight{7cm} %required for correct vertical alignment, if [t] is not used as documentclass parameter
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 1}
+
+\begin{enumerate}
+	\item[1.] Improved-Graph $G'$ berechnen
+\end{enumerate}
+\ \\
+\ \\
+\ \\
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+\end{document}

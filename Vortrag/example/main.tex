@@ -108,6 +108,10 @@ Jede Baumzerteilung hat eine "Baumweite" (treewidth). \\
 	\item Baumweite eines Graphen: Minimale Zerteilungsweite aller Zerteilungen
 \end{itemize}
 
+\begin{itemize}
+	\item Eine Baumzerteilung der Weite $k$ heißt auch $k$-Baumzerteilung oder $k$-Zerteilung
+\end{itemize}
+
 \end{frame}
 
 
@@ -130,7 +134,7 @@ Die folgenden Aussagen zu $k$-Bäumen sind äquivalent:
 	\begin{itemize}
 		\item deg($v$) = $k$ und
 		\item Nachbarknoten von $v$ formen eine $k$-Clique und
-		\item $G \ v$ ist $k$-Baum
+		\item $G \setminus v$ ist $k$-Baum
 	\end{itemize}
 \end{enumerate}
 \ \\
@@ -144,11 +148,11 @@ Jeder komplette Graph mit $k$ Knoten ist damit auch ein $k$-Baum.
 \begin{frame}
 \frametitle{k-Trees}
 \framesubtitle{Erstellung}
-Andersherum: Ein $k$-Baum-Graph $G$ mit $n \geq k$ Knoten kann aus einem $k$-Baum-Graph $H$ mit $n-1$ Knoten wie folgt erstellt werden: \\
+Andersherum: Ein $k$-Baum-Graph $G$ mit $n \geq k$ Knoten kann aus einem $k$-Baum-Graph $H = (V,E)$ mit $n-1$ Knoten wie folgt erstellt werden: \\
 
 \begin{itemize}
 	\item Zu $H$ einen Knoten $u$ hinzufügen ($|V|=(n-1) \rightarrow |V|=n$)
-	\item Knoten $u$ mit Knoten $v_1, ... , v_k$ verbinden
+	\item Knoten $u$ mit bel. Knoten $v_1, ... , v_k$ verbinden
 \end{itemize}
 
 \ \\
@@ -165,7 +169,7 @@ Damit wird Aussage $4$ erfüllt.
 Graph $G=(V,E)$ ist partieller $k$-Baum $\Leftrightarrow$ \\
 
 \begin{itemize}
-	\item $G$ ist Teilgraph eines $k$-Baumes
+	\item $G$ ist Teilgraph eines $k$-Baumes oder
 	\item $G$ hat Baumweite max. $k$ %+Beweis?
 \end{itemize}
 \end{frame}
@@ -226,41 +230,204 @@ Ein Maximal Matching kann in $O(|V|)$ gefunden werden, wenn die Baumweite durch 
 
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Algorithmus}
+\framesubtitle{Allgemeines}
+
+Eingabe: Graph $G=(V,E)$ mit $|V|=n$ und Konstante $k \in \mathbb{N}$. \\
+Der Graph wird als Adjazenzliste übergeben.
+\ \\
+Ausgabe in $O(n)$:
+\begin{itemize}
+	\item "Baumweite von $G$ ist größer als $k$"
+	\item "Baumweite von $G$ ist maximal $k$"
+	\begin{itemize}
+		\item Baumzerteilung von $G$ mit Baumweite $k$
+	\end{itemize}
+\end{itemize}
+\ \\
+\ \\
+Für "sehr kleine" Graphen werden andere bekannte Algorithmen genutzt, ansonsten wird wie folgt vorgegangen:
+\end{frame}
+
+
 \begin{frame}
 \frametitle{Anzahl an Friendly-Knoten in $G$}
-\textcolor{cyan}{LEMMA 4.2.}: $G$ hat Baumweite max. $k \Rightarrow$ 
-1 von 2 muss min. gelten:
+\textcolor{cyan}{LEMMA 4.2.}: $G$ hat Baumweite max. $k \Leftarrow$ 
+1 von 2 gilt mindestens:
 \begin{itemize}
 	\item $G$ hat min. $\frac{|V|}{4k^2+12k+16} =: \lambda$ Friendly-Knoten
 	\item $G'$ hat min. $\frac{1}{8k^2+24k+32}\cdot|V|$ I-simp.-Knoten
 \end{itemize}
 \ \\
-Algorithmus hat eine Fallunterscheidung ab $\lambda$ Friendly-Knoten.
+Algorithmus hat eine Fallunterscheidung ab $\lambda$ Friendly-Knoten. \\
+Die Anzahl Friendly-Knoten in $G$ wird mit $n_f$ notiert.
 
 
 \end{frame}
+
 
 \begin{frame}
 \frametitle{Algorithmus}
 \framesubtitle{Fall: Min. $\lambda$ Friendly-Knoten}
 \begin{enumerate}
 	\item Maximum-Matching $M \subseteq E$ finden
-	\item Jede Kante in $M$ kontrahieren um Graphen $\widetilde{G}$ zu erhalten
-	\item Wenn Baumweite von $\widetilde{G} > k \Rightarrow$ \textcolor{red}{STOP} 
+	\item Jede Kante in $M$ kontrahieren um Graphen $\widetilde{G} = (\widetilde{V}, \widetilde{E})$ zu erhalten
 	\item Kompletten Algorithmus auf $\widetilde{G}$ ausführen um Baumzerteilung $(Y,T)$ von $\widetilde{G}$ auszugeben
+	$\rightarrow$ Wenn Baumweite von $\widetilde{G} > k \Rightarrow$ \textcolor{red}{STOP} (\textcolor{cyan}{LEMMA 3.4.})
 	\item Mit \textcolor{cyan}{LEMMA 3.3.} Zerteilung $(X,T)$ aus $(Y,T)$ erstellen %Weite 2k+1
-	\item Mit \textcolor{cyan}{THEOREM 2.4.} prüfen ob Weite von $G > k$ ist $\Rightarrow$ \textcolor{red}{STOP}
-	\item Zerteilung von G errechnen und ausgeben
-	 
+	\item Mit \textcolor{cyan}{THEOREM 2.4.} prüfen ob Weite von $G > k$ ist $\Rightarrow$ \textcolor{red}{STOP} \\
+	$\rightarrow$ Zerteilung von $G$ errechnen und ausgeben
 \end{enumerate}
 \end{frame}
 
 
 
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 1}
+
+\begin{enumerate}
+	\item[1.] Maximum Matching $M \subseteq E$ finden
+\end{enumerate}
+\ \\
+\ \\
+\ \\
+Ein Maximum Matching kann greedy in $O(|V|+|E|)$ gefunden werden. \\
+\ \\
+\textcolor{cyan}{LEMMA 2.3.}: "tw($G$) $\leq k \Rightarrow |E| \leq k|V| - \frac{1}{2} k (k+1)$" \\
+$\Rightarrow |E| \in O(n)$ \\
+$\Rightarrow$ Max. Matching kann in $O(n)$ gefunden werden
+\end{frame}
 
 
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 1}
+
+\begin{enumerate}
+	\item[2.] Jede Kante in $M$ kontrahieren um Graphen $\widetilde{G}$ zu erhalten
+\end{enumerate}
+\ \\
+\ \\
+\ \\
+Eine Kante kann in $O(1)$ kontrahiert werden, liegt der Graph als Adjazenzliste vor.
+\ \\
+\textcolor{cyan}{LEMMA 2.3.}: "tw($G$) $\leq k \Rightarrow |E| \leq k|V| - \frac{1}{2} k (k+1)$" \\
+$\Rightarrow |M| \in O(|E|)$ \\
+$\Rightarrow$ Alle Kanten können in $O(n)$ kontrahiert werden.
+\end{frame}
 
 
+\begin{frame} %TODO Verstehen
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 1}
+
+\begin{enumerate}
+	\item[3.] Kompletten Algorithmus auf $\widetilde{G}$ ausführen um Baumzerteilung $(Y,T)$ von $\widetilde{G}$ auszugeben
+\end{enumerate}
+\ \\
+\ \\
+Ein Maximum Matching hat min. $\frac{n_f}{2 \cdot (2k^3 (k+1) (4k^2 +12k + 16))}$ Kanten. \\
+\ \\
+Für jeden Friendly-Knoten gilt:
+\begin{itemize}
+	\item Er ist Endpunkt von einem $m \in M$ oder
+	\item Er ist adjazent zu einem Friendly-Knoten, der Endpunkt ist
+\end{itemize}
+$\Rightarrow \forall m \in M$ werden max. $2d$ Friendly-Knoten assoziiert, die Endpunkt sind oder adjazent zu einem Friendly-Endpunkt sind.
+$\Rightarrow$: Ist ein Friendly-Knoten nicht assoziiert so ist $M$ nicht maximal $\Rightarrow |M| \geq \frac{n_f}{2d}$
+\end{frame}
+
+\begin{frame} %TODO Verstehen
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 1}
+
+\begin{enumerate}
+	\item[3.] Kompletten Algorithmus auf $\widetilde{G}$ ausführen um Baumzerteilung $(Y,T)$ von $\widetilde{G}$ auszugeben
+\end{enumerate}
+\ \\
+\ \\
+Ein Maximum Matching hat min. $\frac{n_f}{2 \cdot (2k^3 (k+1) (4k^2 +12k + 16))}$ Kanten. \\
+$\Rightarrow |\widetilde{V}| = (1 - \frac{1}{2d(4k^2+12k+16)}) \cdot |V|$
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 1}
+
+\begin{enumerate}
+	\item[5.] Mit \textcolor{cyan}{LEMMA 3.3.} Zerteilung $(X,T)$ aus $(Y,T)$ erstellen %Weite 2k+1
+\end{enumerate}
+\ \\
+\ \\
+\ \\
+$
+f_M: V \mapsto \widetilde{V} = \begin{cases} %TODO Umformatieren
+			f_M(v) = v &\text{Wenn } v \text{ nicht Endpunkt in } M \text{ ist} \\
+			f_M(v) = f_M(w) &\text{Der Knoten der bei der Kontraktion }(v,w) \in M \text{ bleibt }
+		\end{cases}
+$ \\
+$(Y,T)$ Zerteilung von $\widetilde{G}$, so ist $(X,T)$ mit $X_i = \{ v \in V | f_M(v) \in Y_i \}$ Zerteilung von $G$ mit Weite max. $2k+1$
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 1}
+
+\begin{enumerate}
+	\item[6.] prüfen ob Weite von $G > k$ ist $\Rightarrow$ \textcolor{red}{STOP}
+	\item[6.1.] Zerteilung von G errechnen und ausgeben
+\end{enumerate}
+\ \\
+\ \\
+\ \\
+\textcolor{cyan}{THEOREM 2.4.}: "$\forall k,l \in \mathbb{N} \exists$ Linearzeitalgorithmus, welcher aus einem Graph $G=(V,E)$ und einer $l$-Zerteilung prüft ob die Baumweite von $G$ max. $k$ ist und eine $k$-Zerteilung errechnet" \\
+\ \\
+Laufzeit: $O(l^{l-2} \cdot ((2l+3)^{2l+3} \cdot (\frac{8}{3} 2^{2k+2})^{2l+3})^{2l-1})) \in O(k^3)$ bei $l \in O(k)$
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+\frametitle{Algorithmus}
+\framesubtitle{Fall: Max. $\lambda - 1$ Friendly-Knoten}
+\begin{enumerate}
+	\item Improved-Graph $G'$ berechnen \\
+	$\rightarrow \exists$ I.simp.-Knoten $v$ mit deg($v$) = $k+1 \Rightarrow$ \textcolor{red}{STOP}
+	
+	\item Alle I.simp.-Knoten in Menge $SL$ und von $G$ entfernen $\Rightarrow \widehat{G}$ entsteht \\
+	$\rightarrow |SL| < c_2 \cdot |V| \Rightarrow$ \textcolor{red}{STOP} (\textcolor{cyan}{THEOREM 4.2.})
+	
+	\item Algorithmus rekursiv auf $\widehat{G}$ ausführen $\Rightarrow$ Ausgabe von Zerteilung $(Y,T)$ von $\widehat{G}$ \\
+	$\rightarrow$ tw($\widehat{G}$) $> k \Rightarrow$ \textcolor{red}{STOP} ($\widehat{G}$ Teilgraph von $G \Rightarrow$ tw($G$) $> k$)
+	
+	\item $\forall v \in SL$: Finde ein $Y_{i_v} \in Y$ in dem alle Nachbarn von $v$ sind ($N_G(v) \subseteq Y_{i_v}$) \\
+	Füge $Y_{j_v} = \{v\} \cup N_G(v)$ zu $Y$ hinzu und mache es adjazent zu $Y_{i_v}$ \\
+	$\rightarrow$ Baumzerteilung von $G$ mit Baumweite max. $k$
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Algorithmus}
+\framesubtitle{Fall: Max. $\lambda - 1$ Friendly-Knoten: Letzter Schritt}
+\begin{enumerate}
+\item $\forall v \in SL$: Finde ein $Y_{i_v} \in Y$ in dem alle Nachbarn von $v$ sind ($N_G(v) \subseteq Y_{i_v}$)
+\item Füge $Y_{j_v} = \{ \{v\} \cup N_G(v) \}$ zu $Y$ hinzu und mache es adjazent zu $Y_{i_v}$ \\
+$\Rightarrow$ Baumzerteilung von $G$ mit Baumweite max. $k$
+\end{enumerate}
+\ \\
+\ \\
+
+$Y_{i_v}$ existiert für jedes $v$, da I.simp.-Knoten in $G$ nicht adjazent sind und $N_G(v)$ eine Clique formt. \\
+\textcolor{cyan}{LEMMA 2.1.i)}: "Ist $(X,T)$ Zerteilung von $G$ und formt $W \subseteq V$ eine Clique in $G$, $\exists i \in I W \subseteq X_i$"
+\end{frame}
 
 
 
