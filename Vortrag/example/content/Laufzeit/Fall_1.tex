@@ -1,0 +1,106 @@
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 1}
+
+\begin{enumerate}
+	\item[1.] Maximum Matching $M \subseteq E$ finden
+\end{enumerate}
+\ \\
+\ \\
+\ \\
+Ein Maximum Matching kann greedy in $O(|V|+|E|)$ gefunden werden. \\
+\ \\
+\textcolor{cyan}{LEMMA 2.3.}: "tw($G$) $\leq k \Rightarrow |E| \leq k|V| - \frac{1}{2} k (k+1)$" \\
+$\Rightarrow |E| \in O(n)$ \\
+$\Rightarrow$ Max. Matching kann in $O(n)$ gefunden werden
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 1}
+
+\begin{enumerate}
+	\item[2.] Jede Kante in $M$ kontrahieren um Graphen $\widetilde{G}$ zu erhalten
+\end{enumerate}
+\ \\
+\ \\
+\ \\
+Eine Kante kann in $O(1)$ kontrahiert werden, liegt der Graph als Adjazenzliste vor.
+\ \\
+\textcolor{cyan}{LEMMA 2.3.}: "tw($G$) $\leq k \Rightarrow |E| \leq k|V| - \frac{1}{2} k (k+1)$" \\
+$\Rightarrow |M| \in O(|E|) \in O(|V|)$ \\
+$\Rightarrow$ Alle Kanten können in $O(n)$ kontrahiert werden.
+\end{frame}
+
+
+\begin{frame} %TODO Verstehen
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 1}
+
+\begin{enumerate}
+	\item[3.] Kompletten Algorithmus auf $\widetilde{G}$ ausführen um Baumzerteilung $(Y,T)$ von $\widetilde{G}$ auszugeben
+\end{enumerate}
+\ \\
+\ \\
+Ein Maximum Matching hat min. $\frac{n_f}{2 \cdot (2k^3 (k+1) (4k^2 +12k + 16))}$ Kanten. \\
+\ \\
+Für jeden Friendly-Knoten gilt:
+\begin{itemize}
+	\item Er ist Endpunkt von einem $m \in M$ oder
+	\item Er ist adjazent zu einem Friendly-Knoten, der Endpunkt ist
+\end{itemize}
+$\Rightarrow \forall m \in M$ werden max. $2d$ Friendly-Knoten assoziiert, die Endpunkt sind oder adjazent zu einem Friendly-Endpunkt sind.
+$\Rightarrow$: Ist ein Friendly-Knoten nicht assoziiert so ist $M$ nicht maximal $\Rightarrow |M| \geq \frac{n_f}{2d}$
+\end{frame}
+
+\begin{frame} %TODO Verstehen
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 1}
+
+\begin{enumerate}
+	\item[3.] Kompletten Algorithmus auf $\widetilde{G}$ ausführen um Baumzerteilung $(Y,T)$ von $\widetilde{G}$ auszugeben
+\end{enumerate}
+\ \\
+\ \\
+Ein Maximum Matching hat min. $\frac{n_f}{2 \cdot (2k^3 (k+1) (4k^2 +12k + 16))}$ Kanten. \\
+$\Rightarrow |\widetilde{V}| = (1 - \frac{1}{2d(4k^2+12k+16)}) \cdot |V|$
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 1}
+
+\begin{enumerate}
+	\item[5.] Mit \textcolor{cyan}{LEMMA 3.3.} Zerteilung $(X,T)$ von $G$ aus $(Y,T)$ erstellen %Weite 2k+1
+\end{enumerate}
+\ \\
+\ \\
+\ \\
+$
+f_M: V \mapsto \widetilde{V} = \begin{cases} %TODO Umformatieren
+			f_M(v) = v &\text{Wenn } v \text{ nicht Endpunkt in } M \text{ ist} \\
+			f_M(v) = f_M(w) &\text{Der Knoten der bei der Kontraktion }(v,w) \in M \text{ bleibt }
+		\end{cases}
+$ \\
+$(Y,T)$ Zerteilung von $\widetilde{G}$, so ist $(X,T)$ mit $X_i = \{ v \in V | f_M(v) \in Y_i \}$ Zerteilung von $G$ mit Weite max. $2k+1$
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 1}
+
+\begin{enumerate}
+	\item[6.] $k$-Zerteilung von G errechnen
+	\item[6.1.] prüfen ob Weite von $G > k$ ist $\Rightarrow$ \textcolor{red}{STOP}
+\end{enumerate}
+\ \\
+\ \\
+\ \\
+\textcolor{cyan}{THEOREM 2.4.}: "$\forall k,l \in \mathbb{N}$ $\exists$ Linearzeitalgorithmus, welcher aus einem Graph $G=(V,E)$ und einer $l$-Zerteilung prüft ob die Baumweite von $G$ max. $k$ ist und eine $k$-Zerteilung errechnet" \\
+\ \\
+Laufzeit: $O(l^{l-2} \cdot ((2l+3)^{2l+3} \cdot (\frac{8}{3} 2^{2k+2})^{2l+3})^{2l-1})) \in O(k^3)$ bei $l \in O(k)$
+\end{frame}
