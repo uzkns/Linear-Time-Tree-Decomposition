@@ -11,10 +11,18 @@
 	\item Knoten durchzählen $(v_1, v_2, \dots, v_n)$
 	\item Queue $Q$ mit Tripeln der Form $((v,w),x)$ oder $((v,w),-)$ mit $v,w,x \in V$
 	\item Array $S$ mit Liste $S[v_i]$ die für $v_i$ Paare von Knoten enthält
-	\item $\forall (v_i, v_j) \in E$ mit $i < j \rightarrow((,v,w),-)$ in $Q$ einstapeln
+	\item $\forall (v_i, v_j) \in E$ mit $i < j \rightarrow ((v_i, v_j), -)$ in $Q$ einstapeln
 	\item $\forall v \in V$ mit deg($v$) $\leq k \rightarrow$ Alle Nachbarpaare $v_i, v_j \in N_G(v)$ durch $((v_i, v_j),v)$ in $Q$ einstapeln
 \end{itemize}
 $\vdots$
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Laufzeit}
+\framesubtitle{Visualisierung}
+
 
 \end{frame}
 
@@ -29,7 +37,7 @@ $\vdots$
 	$\rightarrow$ Alle Tripel $((v_i, v_j),v)$ mit gleichem $i,j$ sind hintereinander \\
 	$\Rightarrow$ Es kann schnell geprüft werden welche Paare $k+1$ gemeinsame Nachbarn haben
 	\item Sind min. $k+1$ Einträge $((v_i, v_j), v)$ für ein Paar $v_i, v_j$ in $Q$ untereinander $\Rightarrow (v_i, v_j)$ ist in $G'$
-	\item Für jedes obiges Paar $(v_i, v_j)$ und wenn $((v,w),-) \in Q \rightarrow$ Füge $(v_i, v_j)$ für alle $((v_i, v_j), v)$ zu $S[v]$ hinzu
+	\item Für jedes obiges Paar $(v_i, v_j)$ und wenn $((v_i, v_j), -) \in Q \rightarrow$ Füge $(v_i, v_j)$ für alle $((v_i, v_j), v)$ zu $S[v]$ hinzu
 \end{itemize}
 \ \\
 \ \\
