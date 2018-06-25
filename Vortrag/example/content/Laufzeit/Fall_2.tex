@@ -37,7 +37,7 @@ $\vdots$
 	$\rightarrow$ Alle Tripel $((v_i, v_j),v)$ mit gleichem $i,j$ sind hintereinander \\
 	$\Rightarrow$ Es kann schnell geprüft werden welche Paare $k+1$ gemeinsame Nachbarn haben
 	\item Sind min. $k+1$ Einträge $((v_i, v_j), v)$ für ein Paar $v_i, v_j$ in $Q$ untereinander $\Rightarrow (v_i, v_j)$ ist in $G'$
-	\item Für jedes obiges Paar $(v_i, v_j)$ und wenn $((v_i, v_j), -) \in Q \rightarrow$ Füge $(v_i, v_j)$ für alle $((v_i, v_j), v)$ zu $S[v]$ hinzu
+	\item Für jedes obiges Paar $(v_i, v_j)$ und wenn $((v_i, v_j), -) \in Q \rightarrow$ Füge $(v_i, v_j)$ für jedes $((v_i, v_j), v)$ zu $S[v]$ hinzu
 \end{itemize}
 \ \\
 \ \\
@@ -46,6 +46,41 @@ $S[v]$ enthält nun alle Kanten von Nachbarn von $v$. Da deg($v$) $\leq k$ ist $
 Damit kann durch ansehen von $S[v]$ entschieden werden ob $v$ I-simplizial ist.
 \end{frame}
 
+
+\begin{frame}[t]
+\begin{figure}[htbp] 
+	\includegraphics[width=0.7\textwidth]{images/1.png}
+	\caption{1}
+	\label{fig:Bild1}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[t]
+\begin{figure}[htbp] 
+	\includegraphics[width=0.7\textwidth]{images/2.png}
+	\caption{1}
+	\label{fig:Bild1}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[t]
+\begin{figure}[htbp] 
+	\includegraphics[width=0.7\textwidth]{images/3.png}
+	\caption{1}
+	\label{fig:Bild1}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}[t]
+\begin{figure}[htbp] 
+	\includegraphics[width=0.7\textwidth]{images/4.png}
+	\caption{1}
+	\label{fig:Bild1}
+\end{figure}
+\end{frame}
 
 
 \begin{frame}
@@ -59,7 +94,7 @@ Damit kann durch ansehen von $S[v]$ entschieden werden ob $v$ I-simplizial ist.
 \ \\
 \ \\
 \ \\
-Durch das Vorgehen von gerade eben können wir die Menge $SL$ in $O(k \cdot n) \in O(n)$ konstruieren.
+Durch das Vorgehen von gerade eben können wir die Menge $SL$ in $O(k \cdot n) \in O(n)$ aus $S$ auslesen.
 
 \end{frame}
 
@@ -121,10 +156,3 @@ $Y_{i_v}$ existiert für jedes $v$, da I.simp.-Knoten in $G$ nicht adjazent sind
 \ \\
 Diese Schritte sind alle zusammen in $O(n)$ ausführbar.
 \end{frame}
-
-
-
-
-
-
-
