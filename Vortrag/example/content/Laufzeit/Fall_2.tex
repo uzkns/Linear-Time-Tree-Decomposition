@@ -15,49 +15,116 @@ Wir definieren $Q = \{ ((v_i, v_j), - ) | (v_i, v_j) \in E, i < j \}$ \\
 \ \\
 und $Q_{v_i,v_j} = \{ ((v_i, v_j), v) | v_i, v_j$ fest$, v \in V \} \subseteq Q$ \\
 
+
+
 \end{frame}
 
 
-\begin{frame}
+\begin{frame}[t]
 \frametitle{Laufzeitanalyse}
 \framesubtitle{Fall 2}
-$Q$:
-\begin{itemize}
-	\item $((1,3), -)$
-	\item $((1,4), -)$
-	\item $((1,5), -)$
-	\item $((1,7), -)$
-	\item $((2,4), -)$
-	\item $((2,5), -)$
-	\item $((2,6), -)$
-	\item $((2,7), -)$
-\end{itemize}
-\end{frame}
 
-\begin{frame}
-\frametitle{Laufzeitanalyse}
-\framesubtitle{Fall 2}
-\begin{minipage}{0.5\textwidth}
-	$Q$:
-	\begin{itemize}
-		\item $((1,3), -)$
-		\item $((1,4), -)$
-		\item $((1,5), -)$
-		\item $((1,7), -)$
-		\item $((2,4), -)$
-		\item $((2,5), -)$
-		\item $((2,6), -)$
-		\item $((2,7), -)$
-		
-		\item $((1,2), 4)$
-		\item $((1,2), 5)$
-		\item $((1,2), 7)$
-	\end{itemize}
-\end{minipage}
-
-\begin{minipage}{0.5\textwidth}
+\begin{columns}
+	\column{.5\textwidth}
+	\begin{block}{$Q$ für $k=2$:}
+		\begin{itemize}
+			\item $((1,3), -)$
+			\item $((1,4), -)$
+			\item $((1,5), -)$
+			\item $((1,7), -)$
+			\item $((2,4), -)$
+			\item $((2,5), -)$
+			\item $((2,6), -)$
+			\item $((2,7), -)$
+		\end{itemize}
+	\end{block}
 	
-\end{minipage}
+	\column{.5\textwidth}
+	\includegraphics[width=0.7\textwidth]{images/Graph_Queue_1.png}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 2}
+
+\begin{columns}
+	\column{.5\textwidth}
+	\begin{block}{$Q$:}
+			\begin{itemize}
+				\item $((1,3), -)$
+				\item $((1,4), -)$
+				\item $((1,5), -)$
+				\item $((1,7), -)$
+				\item $((2,4), -)$
+				\item $((2,5), -)$
+				\item $((2,6), -)$
+				\item $((2,7), -)$
+			
+				\item $((1,2), 4)$
+				\item $((1,2), 5)$
+				\item $((1,2), 7)$
+		\end{itemize}
+	\end{block}
+
+	\column{.5\textwidth}
+		\includegraphics[width=0.7\textwidth]{images/Graph_Queue_1.png}
+\end{columns}
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 2}
+
+\begin{columns}
+	\column{.5\textwidth}
+	\begin{block}{$Q$, erster BucketSort:}
+		\begin{itemize}
+			\item $((1,3), -)$
+			\item $((1,4), -)$
+			\item $((1,5), -)$
+			\item $((1,7), -)$
+			\item $((1,2), 4)$
+			\item $((1,2), 5)$
+			\item $((1,2), 7)$
+			\item $((2,4), -)$
+			\item $((2,5), -)$
+			\item $((2,6), -)$
+			\item $((2,7), -)$
+		\end{itemize}
+	\end{block}
+	
+	\column{.5\textwidth}
+	\includegraphics[width=0.7\textwidth]{images/Graph_Queue_1.png}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[t]
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 2}
+
+\begin{columns}
+	\column{.5\textwidth}
+	\begin{block}{$Q$, zweiter BucketSort:}
+		\begin{itemize}
+			\item $((1,2), 4)$
+			\item $((1,2), 5)$
+			\item $((1,2), 7)$
+			\item $((1,3), -)$
+			\item $((2,4), -)$
+			\item $((1,4), -)$
+			\item $((1,5), -)$
+			\item $((2,5), -)$
+			\item $((2,6), -)$
+			\item $((1,7), -)$
+			\item $((2,7), -)$
+		\end{itemize}
+	\end{block}
+	
+	\column{.5\textwidth}
+	\includegraphics[width=0.7\textwidth]{images/Graph_Queue_1.png}
+\end{columns}
 \end{frame}
 
 
@@ -70,7 +137,39 @@ $Q_{v_i,v_j} = \{ ((v_i, v_j), v) | v_i, v_j$ fest$, v \in V \} \subseteq Q$ \\
 Falls $|Q_{v_i, v_j}| \geq k \rightarrow (v_i, v_j) \in E'$, da $v_i$ und $v_j$ nun min. $(k+1)$ gemeinsame Nachbarn haben. \\
 \ \\
 Für jedes Element aus der oberen Menge und wenn $((v_i, v_j), -) \in Q$: \\
-Füge $(v_i, v_j)$ für jedes $v \in V $zu $Q_v$ hinzu, sodass $Q_v$ alle Kanten von Nachbarn von $v$ enthält.\\
+Füge $(v_i, v_j)$ für jedes $v \in V$ zu $Q_v$ hinzu, sodass $Q_v$ alle Kanten von Nachbarn von $v$ enthält.\\
+\end{frame}
+
+\begin{frame}[t]
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 2}
+
+\begin{columns}
+	\column{.5\textwidth}
+	\begin{block}{$Q$, zweiter BucketSort:}
+		\begin{itemize}
+			\item[1] $((1,2), 4)$
+			\item[2] $((1,2), 5)$
+			\item[3] $((1,2), 7)$
+			\item $((1,3), -)$
+			\item $((2,4), -)$
+		\end{itemize}
+	\vdots
+	\ \\
+	\ \\
+	$S$: \\
+	\begin{tabular}{| c | c | c | c | c | c | c |}
+		\hline
+		1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+		\hline
+		{\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} \\
+		\hline
+	\end{tabular}
+	\end{block}
+	
+	\column{.5\textwidth}
+	\includegraphics[width=0.7\textwidth]{images/Graph_Queue_1.png}
+\end{columns}
 \end{frame}
 
 
@@ -150,7 +249,7 @@ Wie in Fall 1 sind alle rekursiven Aufrufe in $O(|V|)$ möglich. \\
 	$\Rightarrow$ Baumzerteilung von $G$ mit Baumweite max. $k$
 \end{enumerate}
 \ \\
-$Y_{i_v}$ existiert für jedes $v$, da I.simp.-Knoten in $G$ nicht adjazent sind und $N_G(v)$ eine Clique formt. \\
+$Y_{i_v}$ existiert für jedes $v$, da I-simp.-Knoten in $G$ nicht adjazent sind und $N_G(v)$ eine Clique formt. \\
 \textcolor{cyan}{LEMMA 2.1.i)}: "$(X,T)$ Zerteilung von $G$ und $W \subseteq V$ formt Clique in $G \Rightarrow \exists i \in I: W \subseteq X_i$"
 \end{frame}
 
