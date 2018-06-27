@@ -4,25 +4,16 @@
 \framesubtitle{Fall 2}
 
 \begin{enumerate}
-	\item[1.] Improved-Graph $G'$ berechnen
+	\item[1.] Den Improved-Graph $G'$ berechnen
+	\item[1.1.] Alle I-simp.-Knoten von $G$ in Menge $SL$ zusammenfassen
 \end{enumerate}
 \ \\
-\begin{itemize} %TODO Umformatieren
-	\item Knoten durchzählen $(v_1, v_2, \dots, v_n)$
-	\item Queue $Q$ mit Tripeln der Form $((v,w),x)$ oder $((v,w),-)$ mit $v,w,x \in V$
-	\item Array $S$ mit Liste $S[v_i]$ die für $v_i$ Paare von Knoten enthält
-	\item $\forall (v_i, v_j) \in E$ mit $i < j \rightarrow ((v_i, v_j), -)$ in $Q$ einstapeln
-	\item $\forall v \in V$ mit deg($v$) $\leq k \rightarrow$ Alle Nachbarpaare $v_i, v_j \in N_G(v)$ durch $((v_i, v_j),v)$ in $Q$ einstapeln
-\end{itemize}
-$\vdots$
+\ \\
 
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Laufzeit}
-\framesubtitle{Visualisierung}
-
+Wir definieren $Q = \{ ((v_i, v_j), - ) | (v_i, v_j) \in E, i < j \}$ \\
+\hspace{2.86cm}$\cup \{ ((v_i, v_j), v) | v_i, v_j \in N_G(v), i < j \wedge deg(v) \leq k\}$ \\
+\ \\
+und $Q_{v_i,v_j} = \{ ((v_i, v_j), v) | v_i, v_j$ fest$, v \in V \} \subseteq Q$ \\
 
 \end{frame}
 
@@ -30,56 +21,43 @@ $\vdots$
 \begin{frame}
 \frametitle{Laufzeitanalyse}
 \framesubtitle{Fall 2}
-
-$\vdots$
+$Q$:
 \begin{itemize}
-	\item $Q$ zweimal bucket-sortieren, erst nach dem ersten, dann nach dem zweiten Knoten im Tupel \\
-	$\rightarrow$ Alle Tripel $((v_i, v_j),v)$ mit gleichem $i,j$ sind hintereinander \\
-	$\Rightarrow$ Es kann schnell geprüft werden welche Paare $k+1$ gemeinsame Nachbarn haben
-	\item Sind min. $k+1$ Einträge $((v_i, v_j), v)$ für ein Paar $v_i, v_j$ in $Q$ untereinander $\Rightarrow (v_i, v_j)$ ist in $G'$
-	\item Für jedes obiges Paar $(v_i, v_j)$ und wenn $((v_i, v_j), -) \in Q \rightarrow$ Füge $(v_i, v_j)$ für jedes $((v_i, v_j), v)$ zu $S[v]$ hinzu
+	\item $((1,3), -)$
+	\item $((1,4), -)$
+	\item $((1,5), -)$
+	\item $((1,7), -)$
+	\item $((2,4), -)$
+	\item $((2,5), -)$
+	\item $((2,6), -)$
+	\item $((2,7), -)$
 \end{itemize}
-\ \\
-\ \\
-
-$S[v]$ enthält nun alle Kanten von Nachbarn von $v$. Da deg($v$) $\leq k$ ist $S[v]$ durch $k$ beschränkt. \\
-Damit kann durch ansehen von $S[v]$ entschieden werden ob $v$ I-simplizial ist.
 \end{frame}
 
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 2}
+\begin{minipage}{0.5\textwidth}
+	$Q$:
+	\begin{itemize}
+		\item $((1,3), -)$
+		\item $((1,4), -)$
+		\item $((1,5), -)$
+		\item $((1,7), -)$
+		\item $((2,4), -)$
+		\item $((2,5), -)$
+		\item $((2,6), -)$
+		\item $((2,7), -)$
+		
+		\item $((1,2), 4)$
+		\item $((1,2), 5)$
+		\item $((1,2), 7)$
+	\end{itemize}
+\end{minipage}
 
-\begin{frame}[t]
-\begin{figure}[htbp] 
-	\includegraphics[width=0.7\textwidth]{images/1.png}
-	\caption{1}
-	\label{fig:Bild1}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}[t]
-\begin{figure}[htbp] 
-	\includegraphics[width=0.7\textwidth]{images/2.png}
-	\caption{1}
-	\label{fig:Bild1}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}[t]
-\begin{figure}[htbp] 
-	\includegraphics[width=0.7\textwidth]{images/3.png}
-	\caption{1}
-	\label{fig:Bild1}
-\end{figure}
-\end{frame}
-
-
-\begin{frame}[t]
-\begin{figure}[htbp] 
-	\includegraphics[width=0.7\textwidth]{images/4.png}
-	\caption{1}
-	\label{fig:Bild1}
-\end{figure}
+\begin{minipage}{0.5\textwidth}
+	
+\end{minipage}
 \end{frame}
 
 
@@ -87,14 +65,41 @@ Damit kann durch ansehen von $S[v]$ entschieden werden ob $v$ I-simplizial ist.
 \frametitle{Laufzeitanalyse}
 \framesubtitle{Fall 2}
 
+$Q_{v_i,v_j} = \{ ((v_i, v_j), v) | v_i, v_j$ fest$, v \in V \} \subseteq Q$ \\
+\ \\
+Falls $|Q_{v_i, v_j}| \geq k \rightarrow (v_i, v_j) \in E'$, da $v_i$ und $v_j$ nun min. $(k+1)$ gemeinsame Nachbarn haben. \\
+\ \\
+Für jedes Element aus der oberen Menge und wenn $((v_i, v_j), -) \in Q$: \\
+Füge $(v_i, v_j)$ für jedes $v \in V $zu $Q_v$ hinzu, sodass $Q_v$ alle Kanten von Nachbarn von $v$ enthält.\\
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 2}
+
+Der Graph $G' = (V,E')$ kann also aus den verschiedenen $Q_{v_i,v_j}$ ausgelesen werden. \\
+\ \\
+Das finden von I-simp.-Knoten ist durch $Q_v$ nun auch möglich: Da alle Nachbarn von $v$ in $Q_v$ sind, kann schnell geprüft werden ob $N_{G'}(v)$ eine Clique formt.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 2}
+
+Queue $Q$ für Menge $Q$, Array $S$ aus Listen für die $Q_v$'s. \\
+\ \\
+\ \\
+
 \begin{enumerate}
-	\item[2.] Alle I.simp.-Knoten in Menge $SL$ und von $G$ entfernen $\Rightarrow \widehat{G}$ entsteht
+	\item Knoten ordnen $(v_1, v_2 \dots v_n)$
+	\item $\forall (v_i, v_j) \in E, i < j:$ Lege $((v_i, v_j), -)$ auf $Q$
+	\item $\forall v \in V:$ Lege alle $((v_i, v_j), v)$ mit $v_i, v_j \in N_G(v)$ und $i < j$ auf $Q$
+	\item Bucket-sortiere $Q$ zwei mal: Ein mal nach dem ersten, dann nach zweiten Eintrag
 \end{enumerate}
-\ \\
-\ \\
-\ \\
-\ \\
-Durch das Vorgehen von gerade eben können wir die Menge $SL$ in $O(k \cdot n) \in O(n)$ aus $S$ auslesen.
+
 
 \end{frame}
 
@@ -103,7 +108,20 @@ Durch das Vorgehen von gerade eben können wir die Menge $SL$ in $O(k \cdot n) \
 \frametitle{Laufzeitanalyse}
 \framesubtitle{Fall 2}
 
+Sind nach dem Sortieren von $Q$ $(k+1)$ Einträge für gleiches $(v_i, v_j)$ in $Q$ untereinander $\rightarrow (v_i, v_j) \in E'$ \\
+\ \\
+Ist für solche $v_i, v_j$ auch $((v_i, v_j), -)$ in $Q$: Füge für jedes $((v_i, v_j), v)$ das Tupel $(v_i, v_j)$ in alle $S[v]$ ein.\\
+\ \\
+Ist in $S[v]$ jedes $v_i$ mit jedem $v_j$ verbunden: $N_G'(v)$ bildet Clique $\Rightarrow v$ ist I-simp. $\Rightarrow v \in SL$
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 2}
+
 \begin{enumerate}
+	\item[2.] $SL$ von $G$ entfernen $\rightarrow \widehat{G}=(\widehat{V}, \widehat{E})$ entsteht %TODO Formulierung "Entsteht"?
 	\item[3.] Algorithmus rekursiv auf $\widehat{G}$ ausführen
 \end{enumerate}
 \ \\
@@ -112,7 +130,7 @@ Durch das Vorgehen von gerade eben können wir die Menge $SL$ in $O(k \cdot n) \
 \ \\
 Graph $\widehat{G}$ hat nach Entfernung von $SL$ $(1 - c_2) \cdot |V|$ Knoten. \\
 \ \\
-Wie in Fall 1 sind alle rekursiven Aufrufe in $O(n)$ möglich. \\
+Wie in Fall 1 sind alle rekursiven Aufrufe in $O(|V|)$ möglich. \\
 
 \end{frame}
 
