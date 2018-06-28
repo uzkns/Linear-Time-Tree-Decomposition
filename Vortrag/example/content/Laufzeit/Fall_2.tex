@@ -137,8 +137,20 @@ $Q_{v_i,v_j} = \{ ((v_i, v_j), v) | v_i, v_j$ fest$, v \in V \} \subseteq Q$ \\
 Falls $|Q_{v_i, v_j}| \geq k \rightarrow (v_i, v_j) \in E'$, da $v_i$ und $v_j$ nun min. $(k+1)$ gemeinsame Nachbarn haben. \\
 \ \\
 Für jedes Element aus der oberen Menge und wenn $((v_i, v_j), -) \in Q$: \\
-Füge $(v_i, v_j)$ für jedes $v \in V$ zu $Q_v$ hinzu, sodass $Q_v$ alle Kanten von Nachbarn von $v$ enthält.\\
+Füge $(v_i, v_j)$ für jedes $v \in V$ zu einer Menge $S_v$ hinzu, sodass $S_v$ alle Kanten von Nachbarn von $v$ enthält.\\
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 2}
+
+Der Graph $G' = (V,E')$ kann also aus den verschiedenen $Q_{v_i,v_j}$ ausgelesen werden. \\
+\ \\
+Das finden von I-simp.-Knoten ist durch $S_v$ nun auch möglich: Da alle Nachbarn von $v$ in $S_v$ sind, kann schnell geprüft werden ob $N_{G'}(v)$ eine Clique formt.
+
+\end{frame}
+
 
 \begin{frame}[t]
 \frametitle{Laufzeitanalyse}
@@ -160,7 +172,7 @@ Füge $(v_i, v_j)$ für jedes $v \in V$ zu $Q_v$ hinzu, sodass $Q_v$ alle Kanten
 	$S$: \\
 	\begin{tabular}{| c | c | c | c | c | c | c |}
 		\hline
-		1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+		$S_1$ & $S_2$ & $S_3$ & $S_4$ & $S_5$ & $S_6$ & $S_7$ \\
 		\hline
 		{\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} \\
 		\hline
@@ -177,18 +189,7 @@ Füge $(v_i, v_j)$ für jedes $v \in V$ zu $Q_v$ hinzu, sodass $Q_v$ alle Kanten
 \frametitle{Laufzeitanalyse}
 \framesubtitle{Fall 2}
 
-Der Graph $G' = (V,E')$ kann also aus den verschiedenen $Q_{v_i,v_j}$ ausgelesen werden. \\
-\ \\
-Das finden von I-simp.-Knoten ist durch $Q_v$ nun auch möglich: Da alle Nachbarn von $v$ in $Q_v$ sind, kann schnell geprüft werden ob $N_{G'}(v)$ eine Clique formt.
-
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Laufzeitanalyse}
-\framesubtitle{Fall 2}
-
-Queue $Q$ für Menge $Q$, Array $S$ aus Listen für die $Q_v$'s. \\
+Queue $Q$ für Menge $Q$, Array $S$ aus Listen für die $S_v$'s. \\
 \ \\
 \ \\
 
@@ -249,8 +250,15 @@ Wie in Fall 1 sind alle rekursiven Aufrufe in $O(|V|)$ möglich. \\
 	$\Rightarrow$ Baumzerteilung von $G$ mit Baumweite max. $k$
 \end{enumerate}
 \ \\
+
+
+
 $Y_{i_v}$ existiert für jedes $v$, da I-simp.-Knoten in $G$ nicht adjazent sind und $N_G(v)$ eine Clique formt. \\
-\textcolor{cyan}{LEMMA 2.1.i)}: "$(X,T)$ Zerteilung von $G$ und $W \subseteq V$ formt Clique in $G \Rightarrow \exists i \in I: W \subseteq X_i$"
+\ \\
+\begin{KITinfoblock}{Lemma 2.1.i)}
+	Ist $(X,T)$ Zerteilung von $G=(V,E)$ und $W \subseteq V$ formt Clique in $G \Rightarrow \exists i \in I: W \subseteq X_i$
+\end{KITinfoblock}
+
 \end{frame}
 
 
@@ -265,6 +273,9 @@ $Y_{i_v}$ existiert für jedes $v$, da I-simp.-Knoten in $G$ nicht adjazent sind
 	\end{itemize}
 
 	\item Wir erstellen: $\forall l \in \{1 \dots k\}:$ Queue $Q_l$
+	\begin{itemize}
+		\item Also $k$ verschiedene Queues ($Q_1, Q_2 \dots Q_k$)
+	\end{itemize}
 \end{itemize}
 
 \end{frame}

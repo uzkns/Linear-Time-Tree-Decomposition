@@ -59,7 +59,7 @@
 \frametitle{Tree-decomposition}
 \framesubtitle{Definition}
 \ \\ 
-Eine Baumzerteilung eines Graphen $G=(V,E)$ ist ein Tupel $(X, T)$ wo $T =(I, F)$ ein Baum ist und $X = \{ X_i | i \in I \}$ eine Familie von Teilmengen von $V$ wobei jedes $X_i$ einen Knoten in $T$ darstellt. Es gilt: \\
+Eine Baumzerteilung eines Graphen $G=(V,E)$ ist ein Tupel $(X, T)$ wo $T =(I, F)$ ein Baum ist und $X = \{ X_i | i \in I \}$ eine Familie von Teilmengen von $V$ wobei jedes $X_i$ einen Knoten in $T$ darstellt. Es muss gelten: \\
 \ \\
 \begin{enumerate}
 	\item $\bigcup\limits_{i \in I} X_i = V$
@@ -115,10 +115,10 @@ Eine Baumzerteilung der Weite max. $k$ heißt auch $k$-Baumzerteilung oder $k$-Z
 \begin{frame}
 \frametitle{k-Trees}
 \framesubtitle{Definition}
-Ein $k$-Tree $G=/V,E)$ ist ... \\
+Ein $k$-Tree $G=(V,E)$ ist ... \\
 \begin{itemize}
 	\item induktiv konstruiert aus einem $k$-Tree mit $|V|-1$ Knoten indem man einen Knoten zu einer Clique max. $k$ hinzufügt oder
-	\item ein Graph der eine Clique max. $k$ ist
+	\item Ein Graph der ausschließlich aus einer Clique der Größe $k$ besteht
 \end{itemize}
 \ \\
 Ein $k$-Tree ist der maximale Graph mit Baumweite $k$. \\
@@ -147,7 +147,10 @@ Graph $G=(V,E)$ ist partieller $k$-Tree $\Leftrightarrow$ \\
 \framesubtitle{Anwendungen}
 
 \begin{itemize}
-	\item Maximum-Weight Independent Set in Linearzeit lösbar
+	\item Viele NP-schwere Probleme in Linearzeit lösbar
+	\begin{itemize}
+		\item Maximum Weight Indepedent Set
+	\end{itemize}
 	\item Hohe Baumweite $\Leftrightarrow$ Hohe Komplexität in der Systemanalyse
 	\item Erkennungsalgorithmen von Graphen
 	\begin{itemize}
@@ -191,7 +194,7 @@ Ein Knoten $v$ ist ... \\
 		\item Auch "low-deg.-" und "high-deg.-Knoten" genannt
 	\end{itemize}
 	\item ... \emph{Friendly} wenn er low-deg. und adjazent zu einem weiteren low-deg.-Knoten ist
-	\item ... \emph{Simplizial} wenn alle Nachbarn eien Clique formen
+	\item ... \emph{Simplizial} wenn alle Nachbarn eine Clique formen
 \end{itemize}
 \end{frame}
 
@@ -199,8 +202,8 @@ Ein Knoten $v$ ist ... \\
 \begin{frame}
 \frametitle{Maximal Matching $M \subseteq E$}
 
-$M \subseteq E$ ist Matching in $G=(V,E) \Leftrightarrow$ Keine 2 Kanten aus $M$ haben gemeinsamen Endknoten \\
-$M \subseteq E$ ist Maximal Matching wenn keine Kante mehr zu $M$ hinzugefügt werden kann, sodass $M$ Matching bleibt. \\
+$M \subseteq E$ ist \emph{Matching} in $G=(V,E) \Leftrightarrow$ Keine 2 Kanten aus $M$ haben gemeinsamen Endknoten \\
+$M \subseteq E$ ist \emph{Maximal Matching} wenn keine Kante mehr zu $M$ hinzugefügt werden kann, sodass $M$ Matching bleibt. \\
 \ \\
 Ein Maximal Matching kann in $O(|V|)$ gefunden werden, wenn die Baumweite durch ein $k$ beschränkt ist. \\ %LEMMA 2.3.
 \begin{figure}
@@ -217,7 +220,7 @@ Ein Maximal Matching kann in $O(|V|)$ gefunden werden, wenn die Baumweite durch 
 	$G$ hat Baumweite max. $k \Rightarrow$ Es gilt mindestens:
 	\begin{enumerate}
 		\item $G$ hat min. $\frac{|V|}{4k^2+12k+16} =: \lambda$ Friendly-Knoten, oder
-		\item Der Improved-Graph von $G$ hat min. $\frac{\lambda}{2} |V|$ I.simp.-Knoten
+		\item Der Improved-Graph von $G$ hat min. $\frac{\lambda}{2} |V|$ I-simp.-Knoten
 	\end{enumerate}
 \end{KITinfoblock}
 \ \\
