@@ -4,16 +4,22 @@
 \framesubtitle{Fall 1}
 
 \begin{enumerate}
-	\item[1.] Maximum Matching $M \subseteq E$ finden
+	\item[1.] Maximal Matching $M \subseteq E$ finden
 \end{enumerate}
 \ \\
 \ \\
 \ \\
-Ein Maximum Matching kann greedy in $O(|V|+|E|)$ gefunden werden. \\
+Ein Maximal Matching kann greedy in $O(|V|+|E|)$ gefunden werden. \\
 \ \\
-\textcolor{cyan}{LEMMA 2.3.}: "tw($G$) $\leq k \Rightarrow |E| \leq k|V| - \frac{1}{2} k (k+1)$" \\
-$\Rightarrow |E| \in O(n)$ \\
-$\Rightarrow$ Max. Matching kann in $O(n)$ gefunden werden
+
+
+\begin{KITinfoblock}{Lemma 2.3.}
+	tw($G$) $\leq k \Rightarrow |E| \leq k|V| - \frac{1}{2} k (k+1)$
+\end{KITinfoblock}
+\ \\
+\ \\
+$\Rightarrow |E| \in O(|V|)$ \\
+$\Rightarrow$ Max. Matching kann in $O(|V|)$ gefunden werden
 \end{frame}
 
 
@@ -26,12 +32,16 @@ $\Rightarrow$ Max. Matching kann in $O(n)$ gefunden werden
 \end{enumerate}
 \ \\
 \ \\
-\ \\
 Eine Kante kann in $O(1)$ kontrahiert werden, liegt der Graph als Adjazenzliste vor.
 \ \\
-\textcolor{cyan}{LEMMA 2.3.}: "tw($G$) $\leq k \Rightarrow |E| \leq k|V| - \frac{1}{2} k (k+1)$" \\
-$\Rightarrow |M| \in O(|E|) \in O(|V|)$ \\
-$\Rightarrow$ Alle Kanten können in $O(n)$ kontrahiert werden.
+\ \\
+\begin{KITinfoblock}{Lemma 2.3.}
+	tw($G$) $\leq k \Rightarrow |E| \leq k|V| - \frac{1}{2} k (k+1)$
+\end{KITinfoblock}
+\ \\
+\ \\
+$|M| \subseteq E$ und $E \in O(|V|)$ \\
+$\Rightarrow$ Alle Kanten können in $O(|V|)$ kontrahiert werden.
 \end{frame}
 
 
@@ -44,15 +54,16 @@ $\Rightarrow$ Alle Kanten können in $O(n)$ kontrahiert werden.
 \end{enumerate}
 \ \\
 \ \\
-Ein Maximum Matching hat min. $\frac{n_f}{2 \cdot (2k^3 (k+1) (4k^2 +12k + 16))}$ Kanten. \\
+Ein Maximal Matching hat min. $\frac{n_f}{2 d}$ Kanten. \\
 \ \\
 Für jeden Friendly-Knoten gilt:
 \begin{itemize}
-	\item Er ist Endpunkt von einem $m \in M$ oder
+	\item Er ist Endpunkt von einem $m \in M$, oder
 	\item Er ist adjazent zu einem Friendly-Knoten, der Endpunkt ist
 \end{itemize}
-$\Rightarrow \forall m \in M$ werden max. $2d$ Friendly-Knoten assoziiert, die Endpunkt sind oder adjazent zu einem Friendly-Endpunkt sind.
-$\Rightarrow$: Ist ein Friendly-Knoten nicht assoziiert so ist $M$ nicht maximal $\Rightarrow |M| \geq \frac{n_f}{2d}$
+$\Rightarrow \forall m \in M$ werden max. $2d$ Friendly-Knoten assoziiert, die Endpunkt sind oder adjazent zu einem Friendly-Endpunkt sind.\\
+\ \\
+Ist ein Friendly-Knoten nicht assoziiert so ist $M$ nicht maximal $\Rightarrow |M| \geq \frac{n_f}{2d}$
 \end{frame}
 
 \begin{frame} %TODO Verstehen
@@ -64,7 +75,7 @@ $\Rightarrow$: Ist ein Friendly-Knoten nicht assoziiert so ist $M$ nicht maximal
 \end{enumerate}
 \ \\
 \ \\
-Ein Maximum Matching hat min. $\frac{n_f}{2 \cdot (2k^3 (k+1) (4k^2 +12k + 16))}$ Kanten. \\
+Ein Maximum Matching hat min. $\frac{n_f}{2d}$ Kanten. \\
 $\Rightarrow |\widetilde{V}| = (1 - \frac{1}{2d(4k^2+12k+16)}) \cdot |V|$
 \end{frame}
 
@@ -78,14 +89,20 @@ $\Rightarrow |\widetilde{V}| = (1 - \frac{1}{2d(4k^2+12k+16)}) \cdot |V|$
 \end{enumerate}
 \ \\
 \ \\
-\ \\
 $
-f_M: V \mapsto \widetilde{V} = \begin{cases} %TODO Umformatieren
-			f_M(v) = v &\text{Wenn } v \text{ nicht Endpunkt in } M \text{ ist} \\
-			f_M(v) = f_M(w) &\text{Der Knoten der bei der Kontraktion }(v,w) \in M \text{ bleibt }
-		\end{cases}
-$ \\
-$(Y,T)$ Zerteilung von $\widetilde{G}$, so ist $(X,T)$ mit $X_i = \{ v \in V | f_M(v) \in Y_i \}$ Zerteilung von $G$ mit Weite max. $2k+1$
+f_M: V \mapsto \widetilde{V}:
+\begin{cases} %TODO Umformatieren
+	f_M(v) = v &\text{Wenn } v \text{ nicht Endpunkt in } M \text{ ist} \\
+	f_M(v) = f_M(w) &\text{sonst}
+\end{cases}$\\
+Dabei ist $f_m(w)$ der Knoten der bei der Kontraktion von $(v,w) \in M$ bleibt. \\
+\ \\
+\ \\
+Ist $(Y,T)$ Zerteilung von $\widetilde{G}$, so ist $(X,T)$ mit $X_i = \{ v \in V | f_M(v) \in Y_i \}$ Zerteilung von $G$ mit Weite max. $2k+1$
+\end{frame}
+
+\begin{frame}
+Hier kommt noch ein Bild von Schritt 4 hin
 \end{frame}
 
 

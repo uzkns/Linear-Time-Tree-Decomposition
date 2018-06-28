@@ -30,7 +30,8 @@
 
 
 \title{A Linear-Time Algorithm For Finding Tree-Decompositions Of Small Treewidth}
-\subtitle{Maximilian F. Göckel -- \textit{uzkns@student.kit.edu}}
+\subtitle{Autor: Hans L. Bodlaender -- \textit{h.l.bodlaender@uu.nl} \\
+	Vortrag: Maximilian F. Göckel -- \textit{uzkns@student.kit.edu}}
 
 \author[Maximilian Göckel]{Maximilian F. Göckel}
 \institute{Institut für Theoretische Informatik - Proseminar Algorithmen für NP-schwere Probleme}
@@ -58,7 +59,7 @@
 \frametitle{Tree-decomposition}
 \framesubtitle{Definition}
 \ \\ 
-Eine Baumzerteilung eines Graphen $G=(V,E)$ ist ein Tupel $(X, T)$ wo $T =(I, F)$ ein Baum ist und $X = \{ X_i | i \in I \}$ eine Familie von Teilmengen von $V$ wobei jedes $X_i$ einen Knoten in $T$ darstellt. \\
+Eine Baumzerteilung eines Graphen $G=(V,E)$ ist ein Tupel $(X, T)$ wo $T =(I, F)$ ein Baum ist und $X = \{ X_i | i \in I \}$ eine Familie von Teilmengen von $V$ wobei jedes $X_i$ einen Knoten in $T$ darstellt. Es gilt: \\
 \ \\
 \begin{enumerate}
 	\item $\bigcup\limits_{i \in I} X_i = V$
@@ -76,8 +77,6 @@ Eine Baumzerteilung eines Graphen $G=(V,E)$ ist ein Tupel $(X, T)$ wo $T =(I, F)
 \begin{figure}[htbp] 
 	\centering
 	\includegraphics[width=0.7\textwidth]{tree_2.png}
-	\caption{1}
-	\label{fig:Bild1}
 \end{figure}
 
 \end{frame}
@@ -113,63 +112,32 @@ Eine Baumzerteilung der Weite max. $k$ heißt auch $k$-Baumzerteilung oder $k$-Z
 \end{frame}
 
 
-%k trees
 \begin{frame}
 \frametitle{k-Trees}
 \framesubtitle{Definition}
-
-Die folgenden Aussagen zu $k$-Bäumen sind äquivalent:
-%Quelle: http://www.ii.uib.no/~pinar/chordal.pdf
-\begin{enumerate}
-	\item $G = (V,E)$ ist ein $k$-Baum
-	\item $G$ ist verbunden und hat eine $k$-Clique, aber keine $(k+2)$-Clique und
-	\begin{itemize}
-		\item Jeder minimale Seperator von $G$ ist eine $k$-Clique oder
-		\item $\forall$ nicht-adjazenten Knotenpaare $x,y \in V$ $\exists$ $k$ Wege $x \rightarrow y$
-	\end{itemize} 
-	\item $G$ ist verbunden,  $|E| = k|V|- \frac{1}{2}k(k+1)$ und jeder minimale Seperator von $G$ ist eine $k$-Clique
-	\item $G$ hat Knoten $v$ mit 3 Eigenschaften:
-	\begin{itemize}
-		\item deg($v$) = $k$ und
-		\item Nachbarknoten von $v$ formen eine $k$-Clique und
-		\item $G \setminus v$ ist $k$-Baum
-	\end{itemize}
-\end{enumerate}
-\ \\
-Jeder komplette Graph mit $k$ Knoten ist damit auch ein $k$-Baum.
-
-\end{frame}
-
-
-
-%k trees
-\begin{frame}
-\frametitle{k-Trees}
-\framesubtitle{Erstellung}
-Andersherum: Ein $k$-Baum-Graph $G$ mit $n \geq k$ Knoten kann aus einem $k$-Baum-Graph $H = (V,E)$ mit $n-1$ Knoten wie folgt erstellt werden: \\
-
+Ein $k$-Tree $G=/V,E)$ ist ... \\
 \begin{itemize}
-	\item Zu $H$ einen Knoten $u$ hinzufügen ($|V|=(n-1) \rightarrow |V|=n$)
-	\item Knoten $u$ mit bel. Knoten $v_1, ... , v_k$ verbinden
+	\item induktiv konstruiert aus einem $k$-Tree mit $|V|-1$ Knoten indem man einen Knoten zu einer Clique max. $k$ hinzufügt oder
+	\item ein Graph der eine Clique max. $k$ ist
 \end{itemize}
-
 \ \\
-Damit wird Aussage $4$ erfüllt.
-
+Ein $k$-Tree ist der maximale Graph mit Baumweite $k$. \\
 \end{frame}
 
 
 %partial k-trees
+
 \begin{frame}
 \frametitle{Partial k-Trees}
 \framesubtitle{Definition}
 
-Graph $G=(V,E)$ ist partieller $k$-Baum $\Leftrightarrow$ \\
+Graph $G=(V,E)$ ist partieller $k$-Tree $\Leftrightarrow$ \\
 
 \begin{itemize}
-	\item $G$ ist Teilgraph eines $k$-Baumes oder
+	\item $G$ ist Teilgraph eines $k$-Trees oder
 	\item $G$ hat Baumweite max. $k$ %+Beweis?
 \end{itemize}
+
 \end{frame}
 
 
@@ -181,10 +149,33 @@ Graph $G=(V,E)$ ist partieller $k$-Baum $\Leftrightarrow$ \\
 \begin{itemize}
 	\item Maximum-Weight Independent Set in Linearzeit lösbar
 	\item Hohe Baumweite $\Leftrightarrow$ Hohe Komplexität in der Systemanalyse
-	\item Erkennung von partiellen k-Bäumen
-	\item Pfadweite
-	\item Graphen-Erkennungsalgorithmen
+	\item Erkennungsalgorithmen von Graphen
+	\begin{itemize}
+		\item Graphen mit geb. Pfadweite
+		\item Partielle $k$-Trees
+	\end{itemize}
 \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Algorithmus}
+\framesubtitle{Allgemeines}
+
+Eingabe: Graph $G=(V,E)$ und Konstante $k \in \mathbb{N}$. \\
+Der Graph wird als Adjazenzliste übergeben.
+\ \\
+Ausgabe in $O(n)$:
+\begin{itemize}
+	\item "Baumweite von $G$ ist größer als $k$" oder
+	\item "Baumweite von $G$ ist maximal $k$"
+	\begin{itemize}
+		\item Baumzerteilung von $G$ mit Baumweite $k$
+	\end{itemize}
+\end{itemize}
+\ \\
+\ \\
+Ist $k$ Teil der Eingabe so ist das Problem NP-schwer und sogar NP-vollständig.
 \end{frame}
 
 
@@ -193,80 +184,44 @@ Graph $G=(V,E)$ ist partieller $k$-Baum $\Leftrightarrow$ \\
 \framesubtitle{Simplizial, freundlich, low- und highdegree}
 Ein Knoten $v$ ist ... \\
 \begin{itemize}
-	\item ... "von niedrigem Grad" wenn deg($v$) $\leq d$
+	\item ... \emph{von niedrigem Grad} wenn deg($v$) $\leq d$
 	\begin{itemize}
-		\item $d = 2k^3 \cdot (k+1) \cdot (4k^2 +12k + 16)$
+		\item $d := 2k^3 \cdot (k+1) \cdot (4k^2 +12k + 16)$
 		\item Analog: Hoher Grad $\Leftrightarrow$ deg($v$) $> d$
 		\item Auch "low-deg.-" und "high-deg.-Knoten" genannt
 	\end{itemize}
-	\item ... "Freundlich" wenn er low-deg. und adjazent zu einem weiteren low-deg.-Knoten ist
-	\item ... "Simplizial" wenn alle Nachbarn in einer Clique sind
-	\item ... "I-Simplizial" wenn simp. in $G'$ und deg($v$)$\leq k$ in $G$
+	\item ... \emph{Friendly} wenn er low-deg. und adjazent zu einem weiteren low-deg.-Knoten ist
+	\item ... \emph{Simplizial} wenn alle Nachbarn eien Clique formen
 \end{itemize}
 \end{frame}
 
 
-
 \begin{frame}
-\frametitle{Verbesserter Graph $G'$}
-\framesubtitle{Erstellung und Eigenschaften}
+\frametitle{Maximal Matching $M \subseteq E$}
 
-$G'=(V,E')$ ist $G=(V,E)$ mit Kanten $(v,w) \in E' \forall v,w \in V$ sodass $v,w$ min. $k+1$ gem. Nachbarn mit Grad max. $k$ haben. \\
+$M \subseteq E$ ist Matching in $G=(V,E) \Leftrightarrow$ Keine 2 Kanten aus $M$ haben gemeinsamen Endknoten \\
+$M \subseteq E$ ist Maximal Matching wenn keine Kante mehr zu $M$ hinzugefügt werden kann, sodass $M$ Matching bleibt. \\
 \ \\
-\textcolor{cyan}{LEMMA 4.1.}: tw($G$)$\leq k \Leftrightarrow$ tw($G'$)$\leq k$. \\
-Außerdem ist jede $k$-Zerteilung von $G$ auch eine $k$-Zerteilung von $G'$ und umgekehrt.
-
-\end{frame}
-
-
-
-\begin{frame}
-\frametitle{Maximum Matching $M \subseteq E$}
-
-$M \subseteq E$ ist Maxmimum Matching in $G=(V,E) \Leftrightarrow$ Keine 2 Kanten aus $M$ haben gemeinsamen Endknoten und $|M|$ maximal \\
-\ \\
-Ein Maximum Matching kann in $O(|V|)$ gefunden werden, wenn die Baumweite durch ein $k$ gebunden ist. \\ %LEMMA 2.3.
+Ein Maximal Matching kann in $O(|V|)$ gefunden werden, wenn die Baumweite durch ein $k$ beschränkt ist. \\ %LEMMA 2.3.
 \begin{figure}
 	\includegraphics[height=0.4\textheight]{images/maximum_matching.png}
 \end{figure}
 
-
 \end{frame}
 
 
 \begin{frame}
-\frametitle{Algorithmus}
-\framesubtitle{Allgemeines}
-
-Eingabe: Graph $G=(V,E)$ mit $|V|=n$ und Konstante $k \in \mathbb{N}$. \\
-Der Graph wird als Adjazenzliste übergeben.
-\ \\
-Ausgabe in $O(n)$:
-\begin{itemize}
-	\item "Baumweite von $G$ ist größer als $k$"
-	\item "Baumweite von $G$ ist maximal $k$"
-	\begin{itemize}
-		\item Baumzerteilung von $G$ mit Baumweite $k$
-	\end{itemize}
-\end{itemize}
-\ \\
-\ \\
-Für "sehr kleine" Graphen werden andere bekannte Algorithmen genutzt, ansonsten wird wie folgt vorgegangen:
-\end{frame}
 
 
-\begin{frame}
-\frametitle{Anzahl an Friendly-Knoten in $G$}
-\textcolor{cyan}{LEMMA 4.2.}: $G$ hat Baumweite max. $k \Leftarrow$ 
-1 von 2 gilt mindestens:
-\begin{itemize}
-	\item $G$ hat min. $\frac{|V|}{4k^2+12k+16} =: \lambda$ Friendly-Knoten
-	\item $G'$ hat min. $\frac{1}{8k^2+24k+32}\cdot|V|$ I-simp.-Knoten
-\end{itemize}
+\begin{KITinfoblock}{Lemma 4.2.}
+	$G$ hat Baumweite max. $k \Rightarrow$ Es gilt mindestens:
+	\begin{enumerate}
+		\item $G$ hat min. $\frac{|V|}{4k^2+12k+16} =: \lambda$ Friendly-Knoten, oder
+		\item Der Improved-Graph von $G$ hat min. $\frac{\lambda}{2} |V|$ I.simp.-Knoten
+	\end{enumerate}
+\end{KITinfoblock}
 \ \\
-Algorithmus hat eine Fallunterscheidung ab $\lambda$ Friendly-Knoten. \\
 Die Anzahl Friendly-Knoten in $G$ wird mit $n_f$ notiert.
-
 
 \end{frame}
 
@@ -275,13 +230,13 @@ Die Anzahl Friendly-Knoten in $G$ wird mit $n_f$ notiert.
 \frametitle{Algorithmus}
 \framesubtitle{Fall: Min. $\lambda$ Friendly-Knoten}
 \begin{enumerate}
-	\item Maximum-Matching $M \subseteq E$ finden
-	\item Jede Kante in $M$ kontrahieren um Graphen $\widetilde{G} = (\widetilde{V}, \widetilde{E})$ zu erhalten
-	\item Kompletten Algorithmus auf $\widetilde{G}$ ausführen um Baumzerteilung $(Y,T)$ von $\widetilde{G}$ auszugeben \\
+	\item Finde Maximal Matching $M \subseteq E$
+	\item Jede Kante in $M$ kontrahieren $\rightarrow \widetilde{G} = (\widetilde{V}, \widetilde{E})$ entsteht
+	\item Kompletten Algorithmus auf $\widetilde{G}$ ausführen um Baumzerteilung $(Y,T)$ von $\widetilde{G}$ zu berechnen \\
 		$\rightarrow$ Wenn Baumweite von $\widetilde{G} > k \Rightarrow$ \textcolor{red}{STOP} (\textcolor{cyan}{LEMMA 3.4.})
-	\item Mit \textcolor{cyan}{LEMMA 3.3.} $2k+1$-Zerteilung $(X,T)$ von $G$ aus $(Y,T)$ erstellen %Weite 2k+1
-	\item Mit \textcolor{cyan}{THEOREM 2.4.} $k$-Zerteilung von $G$ errechnen \\
-		$\rightarrow$ Wenn Baumweite von $G > k \Rightarrow$ \textcolor{red}{STOP}
+	\item Mit \textcolor{cyan}{LEMMA 3.3.} $(2k+1)$-Zerteilung $(X,T)$ von $G$ aus $(Y,T)$ erstellen %Weite 2k+1
+	\item Mit \textcolor{cyan}{THEOREM 2.4.} prüfen ob Baumweite von $G > k$ ist, falls nein: \\
+		$\rightarrow$ $k$-Baumzerteilung von $G$ ausgeben
 \end{enumerate}
 \end{frame}
 
@@ -289,6 +244,37 @@ Die Anzahl Friendly-Knoten in $G$ wird mit $n_f$ notiert.
 \include{content/Laufzeit/Fall_1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+
+
+\begin{KITinfoblock}{Lemma 4.2.}
+	$G$ hat Baumweite max. $k \Rightarrow$ Es gilt mindestens:
+	\begin{enumerate}
+		\item $G$ hat min. $\frac{|V|}{4k^2+12k+16} =: \lambda$ Friendly-Knoten, oder
+		\item Der Improved-Graph von $G$ hat min. $\frac{\lambda}{2} |V|$ I.simp.-Knoten
+	\end{enumerate}
+\end{KITinfoblock}
+\ \\
+Die Anzahl Friendly-Knoten in $G$ wird mit $n_f$ notiert.
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Verbesserter Graph $G'$}
+\framesubtitle{Erstellung und Eigenschaften}
+
+$G'=(V,E')$ ist $G=(V,E)$ mit Kanten $(v,w) \in E' \forall v,w \in V$ sodass $v,w$ min. $k+1$ gem. Nachbarn mit Grad max. $k$ haben. \\
+\ \\
+\begin{KITinfoblock}{Lemma 4.1.}
+	tw($G$)$\leq k \Leftrightarrow$ tw($G'$)$\leq k$. \\
+	Jede $k$-Zerteilung von $G$ ist auch eine $k$-Zerteilung von $G'$ und umgekehrt.
+\end{KITinfoblock}
+
+\end{frame}
+
 
 \begin{frame}
 \frametitle{Algorithmus}

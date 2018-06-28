@@ -253,23 +253,116 @@ $Y_{i_v}$ existiert für jedes $v$, da I-simp.-Knoten in $G$ nicht adjazent sind
 \textcolor{cyan}{LEMMA 2.1.i)}: "$(X,T)$ Zerteilung von $G$ und $W \subseteq V$ formt Clique in $G \Rightarrow \exists i \in I: W \subseteq X_i$"
 \end{frame}
 
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 2}
+
+\begin{itemize}
+	\item Wir haben: $(Y,T)$ $k$-Zerteilung von $\widetilde{G}$
+	\begin{itemize}
+		\item $Y = \{ Y_i | i \in I \}$
+	\end{itemize}
+
+	\item Wir erstellen: $\forall l \in \{1 \dots k\}:$ Queue $Q_l$
+\end{itemize}
+
+\end{frame}
+
+
 \begin{frame}
 \frametitle{Laufzeitanalyse}
 \framesubtitle{Fall 2}
 
 \begin{enumerate}
-	\item[4.] Füge $SL$ wieder in die Zerteilung $(Y,T)$ ein
+	\item Queue $Q_l$: Füge alle Paare $((v_{i_1}, v_{i_2} \dots v_{i_l},), i)$ für alle $i \in I$ zu dieser Queue hinzu
+	\begin{itemize}
+		\item $v_{i_x} \in Y_i$
+	\end{itemize}
+	
+	\item Füge zu $Q_l$ noch alle Paare $((v_{i_1}, v_{i_2} \dots v_{i_l},), v)$ mit $v \in SL$ und $v_{i_x} \in N_G(v)$ hinzu 
 \end{enumerate}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 2}
+
+\begin{columns}
+	\column{0.25\textwidth}
+	\begin{block}{}
+		\textcolor{red}{$Q_1$}:
+			\begin{itemize}
+				\item[-] $((u_1), Y_1)$
+				\item[-] $((v_1), Y_2)$
+				\item[-] $((w_1), Y_3)$
+				\item[-] $((x_1), Y_4)$
+			\end{itemize}
+		\textcolor{green}{$Q_2$}:
+			\begin{itemize}
+				\item[-] $((u_1, u_2), Y_1)$
+				\item[-] $((v_1, v_2), Y_2)$
+				\item[-] $((w_1, w_2), Y_3)$
+				\item[-] $((x_1, x_2), Y_4)$
+			\end{itemize}
+
+	\end{block}
+
+	\column{0.370\textwidth}
+	\begin{block}{}
+	\textcolor{cyan}{$Q_3$}:
+		\begin{itemize}
+			\item[-] $((u_1, u_2, u_3), Y_1)$
+			\item[-] $((v_1, v_2, v_3), Y_2)$
+			\item[-] $((w_1, w_2, w_3), Y_3)$
+			\item[-] $((x_1, x_2, x_3), Y_4)$
+		\end{itemize}
+	\textcolor{purple}{$Q_4$}:
+		\begin{itemize}
+			\item[-] $((u_1, u_2, u_3, u_4), Y_1)$
+			\item[-] $((v_1, u_2, v_3, v_4), Y_2)$
+			\item[-] $((w_1, u_2, w_3, w_4), Y_3)$
+			\item[-] $((x_1, u_2, x_3, x_4), Y_4)$
+		\end{itemize}	
+	\end{block}
+	\column{.380\textwidth}
+	\includegraphics[width=1\textwidth]{images/Graph_Q-l_Farbe.png}
+
+\end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 2}
+
+
+Jedes $Q_l$ enthält nun die ersten $l$ Knoten jedes $Y_i \in Y$ und $l$ Nachbarn jedes $v \in SL$. \\
 \ \\
+\ \\
+Bucket-sortiere jedes $Q_l$ $l$-mal, einmal für jeden Knoten $v_{i_x} \rightarrow$ Für jedes $((v_{i_1}, v_{i_2} \dots v_{i_l},), v)$ das passende Tupel $((v_{i_1}, v_{i_2} \dots v_{i_l},), i)$ adjazent in $Q$. \\
+\ \\
+So kann man den neuen Node direkt richtig erstellen und zu dem $Y_i$ adjazent machen. \\
 \ \\
 
-\begin{itemize}
-	\item $\forall l \leq k$: Nimm Queue $Q_l$ wo alle Paare $((v_{i_1}, v_{i_2}, \dots v_{i_l}), i)$ für $v_{i_x} \in Y_i$ und für alle $i \in I, i_1 < i_2 \dots i_l$ hinzugefügt werden
-	\item Füge zu jedem $Q_l$ noch alle Paare $((v_{i_1}, v_{i_2}, \dots v_{i_l}), v)$ wo $v$ I-simp. ist und $N_G(v) = \{ (v_{i_1}, v_{i_2}, \dots v_{i_l} | i_1 < i_2 \dots i_l \}$
-	\item Sortiere jedes $Q_l$ $l$-mal, einmal für jedes $v_{i_x}$ im Tupel. Es entsteht wieder eine Sortierung der $v_i$
-	\item Für jedes Tupel $((\dots), v)$ kann nun schnell das Tupel $((\dots), i)$ gefunden werden
-	\item Mache den neuen Knoten $j_v$ mit $X_{i_j} \{ v \} \cup N_G(v)$ zu dem $i$ adjazent und füge ihn zu $Y$ hinzu
-\end{itemize}
-\ \\
-Diese Schritte sind alle zusammen in $O(n)$ ausführbar.
 \end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
