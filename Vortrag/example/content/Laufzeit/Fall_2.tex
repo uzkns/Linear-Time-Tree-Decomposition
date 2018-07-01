@@ -216,6 +216,40 @@ Ist in $S[v]$ jedes $v_i$ mit jedem $v_j$ verbunden: $N_G'(v)$ bildet Clique $\R
 \end{frame}
 
 
+\begin{frame}[t]
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 2}
+
+
+\begin{columns}
+	\column{.5\textwidth}
+	\begin{block}{$Q$, zweiter BucketSort:}
+		\begin{itemize}
+			\item[1] $((1,2), 4)$
+			\item[2] $((1,2), 5)$
+			\item[3] $((1,2), 7)$
+			\item $((1,3), -)$
+			\item $((2,4), -)$
+		\end{itemize}
+		\vdots
+		\ \\
+		\ \\
+		$S$: \\
+		\begin{tabular}{| c | c | c | c | c | c | c |}
+			\hline
+			$S_1$ & $S_2$ & $S_3$ & $S_4$ & $S_5$ & $S_6$ & $S_7$ \\
+			\hline
+			{\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} & {\scriptsize leer} \\
+			\hline
+		\end{tabular}
+	\end{block}
+	
+	\column{.5\textwidth}
+	\includegraphics[width=0.7\textwidth]{images/Graph_Queue_1.png}
+\end{columns}
+\end{frame}
+
+
 \begin{frame}
 \frametitle{Laufzeitanalyse}
 \framesubtitle{Fall 2}
@@ -260,6 +294,16 @@ $Y_{i_v}$ existiert für jedes $v$, da I-simp.-Knoten in $G$ nicht adjazent sind
 \end{KITinfoblock}
 
 \end{frame}
+
+
+\begin{frame}
+\frametitle{Laufzeitanalyse}
+\framesubtitle{Fall 2}
+
+\includegraphics[width=0.95\textwidth]{images/Graph_zuruck.png}
+
+\end{frame}
+
 
 
 \begin{frame}

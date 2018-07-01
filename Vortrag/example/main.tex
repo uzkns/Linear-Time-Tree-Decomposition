@@ -58,14 +58,21 @@
 \begin{frame}
 \frametitle{Tree-decomposition}
 \framesubtitle{Definition}
-\ \\ 
+
 Eine Baumzerteilung eines Graphen $G=(V,E)$ ist ein Tupel $(X, T)$ wo $T =(I, F)$ ein Baum ist und $X = \{ X_i | i \in I \}$ eine Familie von Teilmengen von $V$ wobei jedes $X_i$ einen Knoten in $T$ darstellt. Es muss gelten: \\
 \ \\
-\begin{enumerate}
-	\item $\bigcup\limits_{i \in I} X_i = V$
-	\item $\forall (v,w) \in E: \exists i \in I: v,w \in X_i$
-	\item $\forall w \in X_i, X_j : $ Jedes $X_k$ im Pfad zwischen $X_i, X_j$ enthält $w$
-\end{enumerate}
+\begin{columns}
+	\column{0.4\textwidth}
+	\begin{enumerate}
+		\item $\bigcup\limits_{i \in I} X_i = V$
+		\item $\forall (v,w) \in E: \exists i \in I: v,w \in X_i$
+		\item $\forall w \in X_i, X_j : $ Jedes $X_k$ im Pfad zwischen $X_i, X_j$ enthält $w$
+	\end{enumerate}
+	
+	\column{0.6\textwidth}
+		\includegraphics[width=1\textwidth]{tree_2.png}
+\end{columns}
+
 \end{frame}
 
 
@@ -74,11 +81,13 @@ Eine Baumzerteilung eines Graphen $G=(V,E)$ ist ein Tupel $(X, T)$ wo $T =(I, F)
 \frametitle{Tree-decomposition}
 \framesubtitle{Veranschaulichung}
 
-\begin{figure}[htbp] 
-	\centering
-	\includegraphics[width=0.7\textwidth]{tree_2.png}
-\end{figure}
-
+\includegraphics[width=1\textwidth]{tree_2.png}
+		
+\begin{enumerate}
+	\item $\bigcup\limits_{i \in I} X_i = V$
+	\item $\forall (v,w) \in E: \exists i \in I: v,w \in X_i$
+	\item $\forall w \in X_i, X_j : $ Jedes $X_k$ im Pfad zwischen $X_i, X_j$ enthält $w$
+\end{enumerate}
 \end{frame}
 
 
@@ -117,27 +126,19 @@ Eine Baumzerteilung der Weite max. $k$ heißt auch $k$-Baumzerteilung oder $k$-Z
 \framesubtitle{Definition}
 Ein $k$-Tree $G=(V,E)$ ist ... \\
 \begin{itemize}
-	\item induktiv konstruiert aus einem $k$-Tree mit $|V|-1$ Knoten indem man einen Knoten zu einer Clique max. $k$ hinzufügt oder
+	\item induktiv konstruiert aus einem $k$-Tree mit $|V|-1$ Knoten indem man einen Knoten zu einer $k$-Clique hinzufügt oder
 	\item Ein Graph der ausschließlich aus einer Clique der Größe $k$ besteht
 \end{itemize}
 \ \\
-Ein $k$-Tree ist der maximale Graph mit Baumweite $k$. \\
-\end{frame}
-
-
-%partial k-trees
-
-\begin{frame}
-\frametitle{Partial k-Trees}
-\framesubtitle{Definition}
-
+$k$-Trees sind maximale Graphen mit Baumweite $k$. \\
+\pause
+\ \\
 Graph $G=(V,E)$ ist partieller $k$-Tree $\Leftrightarrow$ \\
 
 \begin{itemize}
 	\item $G$ ist Teilgraph eines $k$-Trees oder
 	\item $G$ hat Baumweite max. $k$ %+Beweis?
 \end{itemize}
-
 \end{frame}
 
 
@@ -178,7 +179,7 @@ Ausgabe in $O(n)$:
 \end{itemize}
 \ \\
 \ \\
-Ist $k$ Teil der Eingabe so ist das Problem NP-schwer und sogar NP-vollständig.
+Ist $k$ Teil der Eingabe so ist das Problem NP-vollständig.
 \end{frame}
 
 
@@ -266,7 +267,7 @@ Die Anzahl Friendly-Knoten in $G$ wird mit $n_f$ notiert.
 
 
 \begin{frame}
-\frametitle{Verbesserter Graph $G'$}
+\frametitle{Improved-Graph $G'$}
 \framesubtitle{Erstellung und Eigenschaften}
 
 $G'=(V,E')$ ist $G=(V,E)$ mit Kanten $(v,w) \in E' \forall v,w \in V$ sodass $v,w$ min. $k+1$ gem. Nachbarn mit Grad max. $k$ haben. \\
